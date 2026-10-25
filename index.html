@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gantt & Project Scheduler — Perencanaan & Pengembangan Perangkat Lunak PT XYZ</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar no-print">
+  <div class="brand">
+    <span class="logo">▤</span>
+    <div>
+      <strong>SIP-Scheduler</strong>
+      <small>Gantt Chart & Project Scheduler</small>
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <button id="btnCritical" class="btn" aria-pressed="false" title=" sorot tugas jalur kritis">
+      <span class="dot"></span> Show Critical Path
+    </button>
+    <button id="btnExportJson" class="btn" title="Simpan data proyek ke file JSON">⬇ Simpan (JSON)</button>
+    <label class="btn" for="importFile" title="Muat data proyek dari file JSON">⬆ Muat (JSON)</label>
+    <input type="file" id="importFile" accept="application/json,.json" hidden>
+    <button id="btnExportCsv" class="btn" title="Ekspor tabel jadwal ke CSV">⤓ CSV</button>
+    <button id="btnPrint" class="btn btn-primary" title="Cetak laporan jadwal">🖨 Cetak</button>
+    <button id="btnReset" class="btn btn-ghost" title="Kembalikan data awal studi kasus">Reset</button>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ RINGKASAN PROYEK ============ -->
+  <section class="panel project-head">
+    <p class="eyebrow" id="courseLabel"></p>
+    <h1 id="projectName"></h1>
+    <p class="sub" id="projectSub"></p>
+    <div class="badges" id="summary"></div>
+    <div id="alerts"></div>
+  </section>
+
+  <!-- ============ GANTT CHART ============ -->
+  <section class="panel">
+    <div class="panel-head">
+      <h2><span class="num">1</span> Gantt Chart — Timeline Hari Kerja</h2>
+      <div class="legend">
+        <span><i class="lg-bar"></i> Tugas</span>
+        <span><i class="lg-crit"></i> Jalur kritis</span>
+        <span><i class="lg-off"></i> Weekend / Libur</span>
+        <span><i class="lg-hol"></i> Libur custom</span>
+        <span><i class="lg-dl"></i> Batas proyek</span>
+      </div>
+    </div>
+    <div class="gantt" id="gantt"></div>
+  </section>
+
+  <!-- ============ CPM ============ -->
+  <section class="panel">
+    <div class="panel-head">
+      <h2><span class="num">2</span> Analisis Jalur Kritis (CPM)</h2>
+      <div class="legend">
+        <span id="cpmHint"></span>
+      </div>
+    </div>
+    <div class="table-wrap" id="cpmTable"></div>
+  </section>
+
+  <!-- ============ PERT ============ -->
+  <section class="panel">
+    <div class="panel-head">
+      <h2><span class="num">3</span> Diagram PERT — Alur Hubungan Antar-Tugas</h2>
+      <div class="legend">
+        <span><i class="lg-arrow"></i> FS / SS + lag</span>
+        <span><i class="lg-crit"></i> Node kritis</span>
+      </div>
+    </div>
+    <div class="scroll-x" id="pert"></div>
+  </section>
+
+  <!-- ============ SUMBER DAYA ============ -->
+  <section class="panel">
+    <div class="panel-head">
+      <h2><span class="num">4</span> Sumber Daya — Tim Pengembang</h2>
+      <div class="legend"><span id="resHint"></span></div>
+    </div>
+    <div id="resources"></div>
+  </section>
+
+  <!-- ============ KELOLA PROYEK ============ -->
+  <section class="panel no-print">
+    <div class="panel-head">
+      <h2><span class="num">5</span> Kelola Proyek, Kalender & Tugas</h2>
+      <div class="legend"><span>Setiap perubahan langsung dihitung ulang (scheduler + CPM + PERT).</span></div>
+    </div>
+    <div id="manage"></div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <span>Aplikasi HTML / CSS / JavaScript murni — tanpa library eksternal.</span>
+  <span id="footStamp"></span>
+</footer>
+
+<div id="toast" class="toast" hidden></div>
+
+<script src="app.js"></script>
+</body>
+</html>
